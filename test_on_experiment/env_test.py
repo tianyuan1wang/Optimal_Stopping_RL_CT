@@ -4,11 +4,6 @@ from reconstructor_rebin_experiment import reconstruct_image_from_sinogram, comp
 
 
 
-
-a_start = 0
-N_a = 180
-angles = angle_range(N_a)
-
 class env():
     
     def __init__(self, reward, path):
@@ -17,13 +12,16 @@ class env():
         self.n_p = []
         self.reward = reward
         self.path = path
+        self.a_init = 0
+        self.N_a = 180
+        self.angles = angle_range(self.N_a)
         
     def step(self, action, mask):
         # count how many angles
         self.a_start += 1
             
         # transfer the selected action to the radius 
-        self.angle_action = angles[action]
+        self.angle_action = self.angles[action]
 
         # store the selected action
         self.actions_num.append(action)
@@ -50,7 +48,7 @@ class env():
         # move to the next sample
         self.n += 1
         # reset how many angles
-        self.a_start = 0
+        self.a_start = self.a_init
         # reset the storage of the selected angles 
         self.angles_seq = []
         # reset the storage of the selected actions 

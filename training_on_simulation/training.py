@@ -162,7 +162,7 @@ if __name__ == "__main__":
         model = ActorCritic(input_dim=IMAGE_SIZE, output_dim=N_A).to(device)
         optimizer = optim.Adam(model.parameters(), lr=1e-4, weight_decay=1e-5)
         
-        env_e = env(reward)
+        env_e = env(reward, IMAGE_SIZE, N_A)
         
         run_experiments(NUM_EPISODES, N_A, env_e, model, optimizer)
    
